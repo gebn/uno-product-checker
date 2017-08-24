@@ -24,7 +24,7 @@ logger.setLevel(logging.DEBUG)
 def find_available_products(type_: str, phone_number: str) -> Dict[int, str]:
     """
     Ask Uno for a list of packages available on a line.
-    
+
     :param type_: The type of product to query for, e.g. Phone & Broadband is
                   'phone_broadband'.
     :param phone_number: The line phone number, with no spaces or country code.
@@ -40,7 +40,7 @@ def find_available_products(type_: str, phone_number: str) -> Dict[int, str]:
     def _request() -> requests.Response:
         """
         Send the query to Uno.
-        
+
         :return: The raw response object.
         :raises requests.exceptions.RequestException: If the request fails.
         """
@@ -64,7 +64,7 @@ def find_available_products(type_: str, phone_number: str) -> Dict[int, str]:
 def main():
     """
     Executes the high-level logic of the checker.
-    
+
     :return: 0 on success, 1 on failure.
     """
     try:
@@ -90,7 +90,7 @@ def lambda_handler(event, context) -> int:
     :param event: The event that triggered this execution.
     :param context: Current runtime information: http://docs.aws.amazon.com
                     /lambda/latest/dg/python-context-object.html.
-    :return: The script exit code. 
+    :return: The script exit code.
     """
     logger.info(f'Event: {event}')
     return main()
