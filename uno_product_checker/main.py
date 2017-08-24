@@ -73,7 +73,8 @@ def main():
         if available_products.keys() != _EXPECTED_PRODUCTS:
             body = '\n'.join(f' - {name}'
                              for _, name in available_products.items())
-            logger.info(f'Product list has changed:\n{body}')
+            logger.info(f'Product list has changed: expected '
+                        f'{_EXPECTED_PRODUCTS}, found {available_products}')
             # TODO publish notif to SNS 'Uno service offering has changed'
         else:
             logger.info('No change to available product list')
