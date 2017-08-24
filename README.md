@@ -4,9 +4,18 @@
 
 This is a simple script that checks which products of a specific type (e.g. *Phone & Broadband*) are available on a line, and publishes a message to an SNS topic if this list has changed from a preconfigured "known" set. It is designed to run in [AWS Lambda](https://aws.amazon.com/lambda/), and is stateless.
 
+## Configuration
+
+| Parameter | Value                             |
+|-----------|-----------------------------------|
+| Runtime   | Python 3.6                        |
+| Handler   | `main.lambda_handler`             |
+| Memory    | 128 MiB (only uses ~32)           |
+| Timeout   | 1 minute (to allow for back-offs) |
+
 ## Environment Variables
 
-The function expects the following variables to be defined.
+The function expects the following to be defined:
 
 | Name                     | Description                                                                                                                                                                   | Encrypted? |
 |--------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------|
