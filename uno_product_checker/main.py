@@ -81,7 +81,8 @@ def main():
         if available_products.keys() != _EXPECTED_PRODUCTS:
             logger.info('Available product list has changed')
             message = {
-                'title': 'Uno service offering has changed!',
+                'app': _PUSHOVER_APP_TOKEN,
+                'title': 'New services available!',
                 'body': '\n'.join(f' - {name}'
                                   for _, name in available_products.items())
             }
