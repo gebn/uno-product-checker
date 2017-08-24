@@ -59,9 +59,9 @@ def find_available_products(type_: str, phone_number: str) -> Dict[int, str]:
     logger.debug(f'Querying for {type_} products for {phone_number}...')
     response = _request()
     logger.info(f'Request time: {response.elapsed.total_seconds()}s')
-    json = response.json()
+    json_ = response.json()
     products = {product['id']: product['name']
-                for _, content in json.items()
+                for _, content in json_.items()
                 for _, product in content['products'].items()}
     return products
 
