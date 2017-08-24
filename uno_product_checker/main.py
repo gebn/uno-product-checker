@@ -1,19 +1,25 @@
 # -*- coding: utf-8 -*-
 from typing import Dict
 import logging
+import os
+import json
 import requests
 import backoff
-import os
+import boto3
 
 import util
 
 
 _ENDPOINT = 'https://my.uno.net.uk/modules/addons/unobroadband' \
             '/broadbandavailability.php'
+# must be UTF-8: http://boto3.readthedocs.io/en/latest/reference/services
+# /sns.html#SNS.Client.publish
+_SNS_ENCODING = 'utf-8'
 _PHONE_NUMBER = util.kms_decrypt_str(os.environ['PHONE_NUMBER'])
 _TYPE = os.environ['TYPE']
 _EXPECTED_PRODUCTS = {int(pid)
                       for pid in os.environ['EXPECTED_PRODUCTS'].split(',')}
+_NOTIFICATION_TOPIC_ARN = os.environ['NOTIFICATION_TOPIC_ARN']
 _PUSHOVER_APP_TOKEN = util.kms_decrypt_str(os.environ['PUSHOVER_APP_TOKEN'])
 
 
@@ -68,14 +74,26 @@ def main():
 
     :return: 0 on success, 1 on failure.
     """
+    logger.debug(f'Expected products: {_EXPECTED_PRODUCTS}')
+
     try:
         available_products = find_available_products(_TYPE, _PHONE_NUMBER)
+        logger.debug(f'Available products: {available_products}')
+
         if available_products.keys() != _EXPECTED_PRODUCTS:
-            body = '\n'.join(f' - {name}'
-                             for _, name in available_products.items())
-            logger.info(f'Product list has changed: expected '
-                        f'{_EXPECTED_PRODUCTS}, found {available_products}')
-            # TODO publish notif to SNS 'Uno service offering has changed'
+            logger.info('Available product list has changed')
+            message = {
+                'title': 'Uno service offering has changed!',
+                'body': '\n'.join(f' - {name}'
+                                  for _, name in available_products.items())
+            }
+            sns_client = boto3.client('sns')
+            response = sns_client.publish(
+                TopicArn=_NOTIFICATION_TOPIC_ARN,
+                Message=json.dumps(message, ensure_ascii=False).encode(
+                    _SNS_ENCODING))
+            logger.info(f"Published message {response['MessageId']} to "
+                        f"{_NOTIFICATION_TOPIC_ARN}")
         else:
             logger.info('No change to available product list')
         return 0
