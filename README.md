@@ -6,6 +6,8 @@ This is a simple script that checks which products of a specific type (e.g. *Pho
 
 ## Configuration
 
+Uno's API is hosted in Reading, so eu-west-2 or eu-west-1/eu-central-1 are the best AWS regions from a latency perspective.
+
 | Parameter | Value                             |
 |-----------|-----------------------------------|
 | Runtime   | Python 3.6                        |
