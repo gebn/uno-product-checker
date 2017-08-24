@@ -13,7 +13,7 @@ import util
 _ENDPOINT = 'https://my.uno.net.uk/modules/addons/unobroadband' \
             '/broadbandavailability.php'
 _PHONE_NUMBER = util.kms_decrypt_str(os.environ['PHONE_NUMBER'])
-_TYPE = os.environ['TYPE']
+_PRODUCT_TYPE = os.environ['PRODUCT_TYPE']
 _EXPECTED_PRODUCTS = {int(pid)
                       for pid in os.environ['EXPECTED_PRODUCTS'].split(',')}
 _NOTIFICATION_TOPIC_ARN = os.environ['NOTIFICATION_TOPIC_ARN']
@@ -75,7 +75,8 @@ def main() -> int:
     logger.debug(f'Expected products: {_EXPECTED_PRODUCTS}')
 
     try:
-        available_products = find_available_products(_TYPE, _PHONE_NUMBER)
+        available_products = find_available_products(_PRODUCT_TYPE,
+                                                     _PHONE_NUMBER)
         logger.debug(f'Available products: {available_products}')
 
         if available_products.keys() != _EXPECTED_PRODUCTS:
