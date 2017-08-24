@@ -5,3 +5,22 @@ python:
 - 3.6
 script:
 - "./create_deployment_pkg"
+deploy:
+  provider: lambda
+  function_name: uno-product-checker
+  description: Programmatically determines which uno Communications Ltd. services
+    are available on a line
+  region: eu-west-1
+  role: arn:aws:iam::158438328645:role/service-role/uno-product-checker-role
+  runtime: python3.6
+  module_name: main
+  handler_name: lambda_handler
+  zip: "/dev/shm/deploy.zip"
+  timeout: 60
+  memory_size: 128
+  access_key_id:
+    secure: VR2CTTqTpqFPXeK9Gilegak0Yq2xKW+7sdZbSTaGNtRNk0GDuPbDHZODCVvpkyQS49TWfPQPXpKxH0UpownTT/GDmerN5J8k5kpoVhk931b4Axmh0OZJV0IbwP7armhFnTAiP6fuHtPexMDugZ1dzNW9uy0C99umAf82u1ftkRUr2phknQDN8ihqKVjUgN2al9KSVOakKaCvTcMVgoZtLC9Da+VbIZIFu270X/RddwjPAGRE0Nw1OM0C/NI2ffBQPam/z3PMbV+hDKT+DKACOd88L+6eXLgV73XfxJQ8NvntGcVdUqsIxskPm2k3bkuXawQIrZp2THk2yFegJkV2kZIQ3xw7O9hRxgeaoO1KctU1WVSDmJpIP9barQpLEEiHRH/SWlX3+sd5jy76ot4QxvxSiMGtEFOo9o5a3QfvBnuu9xNbMnOTnCPzuslnBh8tL2mx+FUF431iWyH3r8f6d4MHYy5AhqT5Q+MQWvuy6rlA2uzLstkezJ8yAJnaZG+JqmhBdJ1lEeC8wMkF7qz8X3AMEucRDMkMLDqP93ZtReo3TWb4/WKgUxSho0eTLkxouBBTB+kj5ZDk4d7jb2X/Q0EaEg/B3K3/FUqloNwiS56MCLJnHgnlsYQ+T3cSuYyMRBOK8eUM113a2/eizVTWLfF4IHbCghWeim9PLjK2Y8M=
+  secret_access_key:
+    secure: fEG95jdgceQ1TU8dsZRcnGQw1SqmKDH5HNpcOmD++mBBSzxCUCHfN9bA1y7jqmjBzFNx4gR7SlTZl2VgNXPo+sfqoY1WIWBqjPzn5YNlya1/WUQTHTmx/EmeX4jnOq9n53EyifvnE7svdvn+Zt5gpyaajBPXAxWL5xzIb6TDpOWYPahfu+JhxDDL/okCMaD12cjfvxLQ0TWRdScLxz60LsqQ++aXuTZGgdEO5OquiWx6qT1aNv1jS5pnO7kQynHOrQQVXTsk47YT4CT3wgilTD43iVjld1RiYbkD4uJK+cxJGtXHNpO0w7L/1WnCcN9r97kr8Swz4TWTvB0RlkFH+zacho5McDJoQg5V7tYNtBPd3ZL/x1rYoqpD36d4yTvxVZ1FpZzG12TL2p40Wm7pNErqZ3kxUq2J0zQziraYa4g1l/cRcyM5jJfxd7S3gNz6fMwTb2EeMTXpz2jPttQNs4mSVcAQgX2IyiSt37g8Cqtq2EWFy/wZtPRPRyYzaZp5USjdGgjX9PNzYz13nrWQkTbcjFhJLk368iENUg7YC45Lt0L2l8n4emNAn1O5yuu/Zg3sNojE1iesZUojPmA5lI5Jo+R8fYXkuQ7v9QuvRzBMtnfk4vi4ajvmvuRkxblKkbB4MyuPnQ953VFT14CbgBGqnUq28nxXfpWCrG934u8=
+  on:
+    branch: latest
