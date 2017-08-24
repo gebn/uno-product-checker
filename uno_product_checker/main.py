@@ -12,7 +12,8 @@ _ENDPOINT = 'https://my.uno.net.uk/modules/addons/unobroadband' \
             '/broadbandavailability.php'
 _PHONE_NUMBER = util.kms_decrypt_str(os.environ['PHONE_NUMBER'])
 _TYPE = os.environ['TYPE']
-_EXPECTED_PRODUCTS = set(os.environ['EXPECTED_PRODUCTS'].split(','))
+_EXPECTED_PRODUCTS = {int(pid)
+                      for pid in os.environ['EXPECTED_PRODUCTS'].split(',')}
 _PUSHOVER_APP_TOKEN = util.kms_decrypt_str(os.environ['PUSHOVER_APP_TOKEN'])
 
 
