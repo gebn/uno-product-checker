@@ -12,9 +12,6 @@ import util
 
 _ENDPOINT = 'https://my.uno.net.uk/modules/addons/unobroadband' \
             '/broadbandavailability.php'
-# must be UTF-8: http://boto3.readthedocs.io/en/latest/reference/services
-# /sns.html#SNS.Client.publish
-_SNS_ENCODING = 'utf-8'
 _PHONE_NUMBER = util.kms_decrypt_str(os.environ['PHONE_NUMBER'])
 _TYPE = os.environ['TYPE']
 _EXPECTED_PRODUCTS = {int(pid)
@@ -90,8 +87,7 @@ def main():
             sns_client = boto3.client('sns')
             response = sns_client.publish(
                 TopicArn=_NOTIFICATION_TOPIC_ARN,
-                Message=json.dumps(message, ensure_ascii=False).encode(
-                    _SNS_ENCODING))
+                Message=json.dumps(message, ensure_ascii=False))
             logger.info(f"Published message {response['MessageId']} to "
                         f"{_NOTIFICATION_TOPIC_ARN}")
         else:
