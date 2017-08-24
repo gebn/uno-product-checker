@@ -66,7 +66,7 @@ def find_available_products(type_: str, phone_number: str) -> Dict[int, str]:
     return products
 
 
-def main():
+def main() -> int:
     """
     Executes the high-level logic of the checker.
 
