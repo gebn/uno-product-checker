@@ -17,6 +17,7 @@ _TYPE = os.environ['TYPE']
 _EXPECTED_PRODUCTS = {int(pid)
                       for pid in os.environ['EXPECTED_PRODUCTS'].split(',')}
 _NOTIFICATION_TOPIC_ARN = os.environ['NOTIFICATION_TOPIC_ARN']
+_NOTIFICATION_TOPIC_REGION = _NOTIFICATION_TOPIC_ARN.split(':')[3]
 _PUSHOVER_APP_TOKEN = util.kms_decrypt_str(os.environ['PUSHOVER_APP_TOKEN'])
 
 
@@ -84,7 +85,8 @@ def main():
                 'body': '\n'.join(f' - {name}'
                                   for _, name in available_products.items())
             }
-            sns_client = boto3.client('sns')
+            sns_client = boto3.client('sns',
+                                      region_name=_NOTIFICATION_TOPIC_REGION)
             response = sns_client.publish(
                 TopicArn=_NOTIFICATION_TOPIC_ARN,
                 Message=json.dumps(message, ensure_ascii=False))
