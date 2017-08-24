@@ -10,6 +10,7 @@ import boto3
 import util
 
 
+_VERSION = '1.0.0'
 _ENDPOINT = 'https://my.uno.net.uk/modules/addons/unobroadband' \
             '/broadbandavailability.php'
 _PHONE_NUMBER = util.kms_decrypt_str(os.environ['PHONE_NUMBER'])
@@ -49,7 +50,12 @@ def find_available_products(type_: str, phone_number: str) -> Dict[int, str]:
         :return: The raw response object.
         :raises requests.exceptions.RequestException: If the request fails.
         """
-        response_ = requests.post(_ENDPOINT, data={
+        response_ = requests.post(
+            _ENDPOINT,
+            headers={
+                'User-Agent': f'uno-product-checker/{_VERSION}'
+            },
+            data={
                 'phone_number': phone_number,
                 'type': type_
             })
