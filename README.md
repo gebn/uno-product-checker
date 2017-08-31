@@ -2,18 +2,19 @@
 
 [![Build Status](https://travis-ci.org/gebn/uno-product-checker.svg?branch=master)](https://travis-ci.org/gebn/uno-product-checker)
 
-This is a simple script that checks which products of a specific type (e.g.
-*Phone & Broadband*) are available on a line, and publishes a message to an SNS
-topic if this list has changed from a preconfigured "known" set. It is designed
-to run in [AWS Lambda](https://aws.amazon.com/lambda/) on an infrequent
-schedule - please don't use this to bombard Uno. Their API caches responses
-until midnight each day, so there is little point in querying more than once
-every 24 hours, at an absolute maximum.
+This script checks which products of a specific type (e.g. *Phone & Broadband*)
+are available on a line, and publishes a message to an SNS topic if this list
+differs from a preconfigured "known" set. It is designed to run in
+[AWS Lambda](https://aws.amazon.com/lambda/) on an infrequent schedule - please
+don't use this to bombard Uno. Their API caches responses until midnight each
+day, so there is little point in querying more than once every 24 hours, at an
+absolute maximum.
 
 ## Configuration
 
 Uno's API is hosted in Reading, so eu-west-2 or eu-west-1/eu-central-1 are the
-best AWS regions from a latency perspective.
+best AWS regions from a latency perspective (however, given the check takes >10
+seconds, this is arguably negligible).
 
 | Parameter | Value                             |
 |-----------|-----------------------------------|
