@@ -10,7 +10,7 @@ import boto3
 import util
 
 
-_VERSION = '1.0.0'
+_VERSION = '1.0.1'
 _ENDPOINT = 'https://my.uno.net.uk/modules/addons/unobroadband' \
             '/broadbandavailability.php'
 _PHONE_NUMBER = util.kms_decrypt_str(os.environ['PHONE_NUMBER'])
