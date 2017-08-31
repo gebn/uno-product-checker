@@ -22,7 +22,6 @@ _NOTIFICATION_TOPIC_REGION = _NOTIFICATION_TOPIC_ARN.split(':')[3]
 _PUSHOVER_APP_TOKEN = util.kms_decrypt_str(os.environ['PUSHOVER_APP_TOKEN'])
 
 
-logging.getLogger('chump').setLevel(logging.INFO)  # chump is very loud
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 
