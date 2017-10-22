@@ -4,7 +4,6 @@ import logging
 import os
 import json
 import requests
-import backoff
 import boto3
 
 import util
@@ -34,35 +33,22 @@ def find_available_products(type_: str, phone_number: str) -> Dict[int, str]:
                   'phone_broadband'.
     :param phone_number: The line phone number, with no spaces or country code.
     :return: A dictionary of product names, keyed by product ID.
-    :raises requests.exceptions.RequestException: If the request repeatedly
-                                                  failed, or Uno indicated a
-                                                  client-side error.
+    :raises requests.exceptions.RequestException: If the request failed, or Uno
+                                                  indicated a client-side
+                                                  error.
     """
-    @backoff.on_exception(backoff.expo,
-                          requests.exceptions.RequestException,
-                          max_tries=8,
-                          giveup=lambda e: 400 <= e.response.status_code < 500)
-    def _request() -> requests.Response:
-        """
-        Send the query to Uno.
-
-        :return: The raw response object.
-        :raises requests.exceptions.RequestException: If the request fails.
-        """
-        response_ = requests.post(
-            _ENDPOINT,
-            headers={
-                'User-Agent': f'uno-product-checker/{_VERSION}'
-            },
-            data={
-                'phone_number': phone_number,
-                'type': type_
-            })
-        response_.raise_for_status()
-        return response_
 
     logger.debug(f'Querying for {type_} products for {phone_number}...')
-    response = _request()
+    response = requests.post(
+        _ENDPOINT,
+        headers={
+            'User-Agent': f'uno-product-checker/{_VERSION}'
+        },
+        data={
+            'phone_number': phone_number,
+            'type': type_
+        })
+    response.raise_for_status()
     logger.info(f'Request time: {response.elapsed.total_seconds()}s')
     json_ = response.json()
     products = {product['id']: product['name']
