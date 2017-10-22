@@ -97,8 +97,8 @@ def main() -> int:
             response = sns_client.publish(
                 TopicArn=_NOTIFICATION_TOPIC_ARN,
                 Message=json.dumps(message, ensure_ascii=False))
-            logger.info(f"Published message {response['MessageId']} to "
-                        f"{_NOTIFICATION_TOPIC_ARN}")
+            logger.info(f"Published message {response['MessageId']} to " +
+                        _NOTIFICATION_TOPIC_ARN)
         else:
             logger.info('No change to available product list')
         return 0
