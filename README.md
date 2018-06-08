@@ -16,12 +16,12 @@ Uno's API is hosted in Reading, so eu-west-2 or eu-west-1/eu-central-1 are the
 best AWS regions from a latency perspective (however, given the check takes >10
 seconds, this is arguably negligible).
 
-| Parameter | Value                             |
-|-----------|-----------------------------------|
-| Runtime   | Python 3.6                        |
-| Handler   | `main.lambda_handler`             |
-| Memory    | 128 MiB (only uses ~32)           |
-| Timeout   | 1 minute (to allow for back-offs) |
+| Parameter | Value                   |
+|-----------|-------------------------|
+| Runtime   | Python 3.6              |
+| Handler   | `main.lambda_handler`   |
+| Memory    | 128 MiB (only uses ~32) |
+| Timeout   | 45 seconds              |
 
 ## Environment Variables
 
