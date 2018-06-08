@@ -6,19 +6,17 @@ import json
 import requests
 import boto3
 
-import util
 
-
-_VERSION = '1.0.1'
+_VERSION = '1.0.2'
 _ENDPOINT = 'https://my.uno.net.uk/modules/addons/unobroadband' \
             '/broadbandavailability.php'
-_PHONE_NUMBER = util.kms_decrypt_str(os.environ['PHONE_NUMBER'])
+_PHONE_NUMBER = os.environ['PHONE_NUMBER']
 _PRODUCT_TYPE = os.environ['PRODUCT_TYPE']
 _EXPECTED_PRODUCTS = {int(pid)
                       for pid in os.environ['EXPECTED_PRODUCTS'].split(',')}
 _NOTIFICATION_TOPIC_ARN = os.environ['NOTIFICATION_TOPIC_ARN']
 _NOTIFICATION_TOPIC_REGION = _NOTIFICATION_TOPIC_ARN.split(':')[3]
-_PUSHOVER_APP_TOKEN = util.kms_decrypt_str(os.environ['PUSHOVER_APP_TOKEN'])
+_PUSHOVER_APP_TOKEN = os.environ['PUSHOVER_APP_TOKEN']
 
 
 logger = logging.getLogger(__name__)

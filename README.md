@@ -27,10 +27,10 @@ seconds, this is arguably negligible).
 
 The function expects the following to be defined:
 
-| Name                     | Description                                                                                                                                                                   | Encrypted? |
-|--------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------|
-| `PHONE_NUMBER`           | The phone number on the line to check, without spaces or country code.                                                                                                        | ✓          |
-| `PRODUCT_TYPE`           | The package within which to query for products, e.g. Phone & Broadband is *phone_broadband*.                                                                                  | ✗          |
-| `EXPECTED_PRODUCTS`      | A comma separated list of product IDs that are known to be available on the line, e.g. Talk Surf would be *133,134,135*.                                                      | ✗          |
-| `NOTIFICATION_TOPIC_ARN` | The SNS topic to publish to, should the list of actual products differ from the list of varied products. See `uno_product_checker/main.py` for the structure.                 | ✗          |
-| `PUSHOVER_APP_TOKEN`     | The [Pushover](https://pushover.net/) application token to send notifications as. This assumes something sending notifications via Pushover is a consumer on the above topic. | ✓          |
+| Name                     | Description                                                                                                                                                                   |
+|--------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `PHONE_NUMBER`           | The phone number on the line to check, without spaces or country code.                                                                                                        |
+| `PRODUCT_TYPE`           | The package within which to query for products, e.g. Phone & Broadband is *phone_broadband*.                                                                                  |
+| `EXPECTED_PRODUCTS`      | A comma separated list of product IDs that are known to be available on the line, e.g. Talk Surf would be *133,134,135*.                                                      |
+| `NOTIFICATION_TOPIC_ARN` | The SNS topic to publish to, should the list of actual products differ from the list of varied products. See `uno_product_checker/main.py` for the structure.                 |
+| `PUSHOVER_APP_TOKEN`     | The [Pushover](https://pushover.net/) application token to send notifications as. This assumes something sending notifications via Pushover is a consumer on the above topic. |
