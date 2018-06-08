@@ -7,7 +7,7 @@ import requests
 import boto3
 
 
-_VERSION = '1.0.2'
+_VERSION = '1.2.0'
 _ENDPOINT = 'https://my.uno.net.uk/modules/addons/unobroadband' \
             '/broadbandavailability.php'
 _PHONE_NUMBER = os.environ['PHONE_NUMBER']
